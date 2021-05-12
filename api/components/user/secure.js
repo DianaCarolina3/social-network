@@ -11,6 +11,12 @@ module.exports = function checkAuth(action) {
         next();
         break;
 
+      case "follow":
+        //comprueba el usuario por id y token
+        Auth.check.token(req);
+        next();
+        break;
+
       default:
         next();
     }

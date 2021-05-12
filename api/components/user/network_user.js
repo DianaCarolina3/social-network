@@ -9,6 +9,8 @@ const router = express.Router();
 // ROUTES
 router.get("/", list);
 router.get("/:id", get);
+router.get("/:id/follow", followers);
+router.post("/follow/:id", auth("follow"), follow);
 router.post("/", upsert);
 router.put("/", auth("update"), upsert);
 // router.delete("/:id", remove);
@@ -36,6 +38,24 @@ function upsert(req, res, next) {
     .upsert(req.body)
     .then((data) => {
       response.success(req, res, data, 201);
+    })
+    .catch(next);
+}
+
+function follow(req, res, next) {
+  controller
+    .follow(req.user.id, req.params.id)
+    .then((info) => {
+      response.success(req, res, info, 201);
+    })
+    .catch(next);
+}
+
+function followers(req, res, next) {
+  controller
+    .followers(req.params.id)
+    .then((data) => {
+      response.success(req, res, data, 200);
     })
     .catch(next);
 }

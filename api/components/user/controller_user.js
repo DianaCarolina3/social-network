@@ -36,6 +36,20 @@ module.exports = function (injectorStore) {
     return store.upsert(TABLE, user).then(() => user);
   };
 
+  const follow = (from, to) => {
+    return store.upsert(`${TABLE}_follow`, {
+      user_from: from,
+      user_to: to,
+    });
+  };
+
+  const followers = (from) => {
+    const join = {};
+    join[TABLE] = "user_to";
+    const query = { user_from: from };
+    return store.query(`${TABLE}_follow`, query, join);
+  };
+
   // const remove = (id) => {
   //   return store.remove(TABLE, id);
   // };
@@ -44,6 +58,8 @@ module.exports = function (injectorStore) {
     list,
     get,
     upsert,
+    follow,
+    followers,
     // remove,
   };
 };

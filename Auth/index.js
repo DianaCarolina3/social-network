@@ -32,6 +32,10 @@ const check = {
       throw error("No puedes hacer esto", 401);
     }
   },
+
+  token: function (req) {
+    decodeHeader(req);
+  },
 };
 
 //1.extrae el token del header

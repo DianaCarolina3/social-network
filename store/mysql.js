@@ -85,12 +85,26 @@ const upsert = (table, data) => {
 };
 
 //verificacion al inicio de seccion el username
-const query = (table, query) => {
+const query = (table, query, join) => {
+  let joinQuery = "";
+  if (join) {
+    const key = Object.keys(join)[0];
+    //user
+    const val = join[key];
+    //user_to
+    joinQuery = `JOIN ${key} ON ${table}.${val} = ${key}.id`;
+    // JOIN user ON user_follow.user_to = user.id
+  }
+
   return new Promise((resolve, reject) => {
-    connection.query(`SELECT * FROM ${table} WHERE ?`, query, (err, result) => {
-      if (err) return reject(err);
-      resolve(result[0] || null);
-    });
+    connection.query(
+      `SELECT * FROM ${table} ${joinQuery} WHERE ${table}.?`,
+      query,
+      (err, result) => {
+        if (err) return reject(err);
+        resolve(result[0] || null);
+      }
+    );
   });
 };
 
