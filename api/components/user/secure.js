@@ -12,7 +12,8 @@ module.exports = function checkAuth(action) {
         break;
 
       case "follow":
-        //comprueba el usuario por id y token
+      case "delete":
+        //comprueba el usuario por token
         Auth.check.token(req);
         next();
         break;

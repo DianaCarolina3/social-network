@@ -13,7 +13,7 @@ router.get("/:id/follow", followers);
 router.post("/follow/:id", auth("follow"), follow);
 router.post("/", upsert);
 router.put("/", auth("update"), upsert);
-// router.delete("/:id", remove);
+router.delete("/:id", auth("delete"), remove);
 
 function list(req, res, next) {
   controller
@@ -60,15 +60,15 @@ function followers(req, res, next) {
     .catch(next);
 }
 
-// function remove(req, res) {
-//   controller
-//     .remove(req.params.id)
-//     .then(() => {
-//       response.success(req, res, `user ${req.params.id} removed`, 200);
-//     })
-//     .catch((err) => {
-//       response.error(req, res, err.message, 500);
-//     });
-// }
+function remove(req, res) {
+  controller
+    .remove(req.params.id)
+    .then((data) => {
+      response.success(req, res, data, 200);
+    })
+    .catch((err) => {
+      response.error(req, res, err.message, 500);
+    });
+}
 
 module.exports = router;

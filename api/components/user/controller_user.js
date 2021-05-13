@@ -50,9 +50,9 @@ module.exports = function (injectorStore) {
     return store.query(`${TABLE}_follow`, query, join);
   };
 
-  // const remove = (id) => {
-  //   return store.remove(TABLE, id);
-  // };
+  const remove = (id) => {
+    return store.remove(TABLE, id).then(() => `user removed`);
+  };
 
   return {
     list,
@@ -60,6 +60,6 @@ module.exports = function (injectorStore) {
     upsert,
     follow,
     followers,
-    // remove,
+    remove,
   };
 };
