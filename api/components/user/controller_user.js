@@ -6,7 +6,7 @@ module.exports = function (injectorStore) {
   //si viene vacio
   let store = injectorStore;
   if (!store) {
-    store = require("../../../store/dummy");
+    store = require("../../../store/mysql");
   }
 
   const list = () => {
