@@ -13,5 +13,5 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/", router);
 
 app.listen(config.sqlService.port, () => {
-  console.log(`Service SQL listen to port: ${config.sqlService.port}`);
+  console.log(`Service SQL listen on port: ${config.sqlService.port}`);
 });
