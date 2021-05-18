@@ -17,13 +17,19 @@ function createRemoteDB(host, port) {
     return req("PUT", table, data);
   };
   const query = (table, query, join) => {
-    return req("POST", table, query, join);
+    return req("POST" || "PUT", table, query, join);
   };
 
   function req(method, table, data) {
     //ex: localhost:3001/user
     let url = `${URL}/${table}`;
     body = "";
+
+    // if (data && method === "GET") {
+    //   url += `/${id}`;
+    // } else if (data) {
+    //   body = JSON.stringify(data);
+    // }
 
     return new Promise((resolve, reject) => {
       //ejecuta el request
