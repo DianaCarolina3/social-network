@@ -4,7 +4,14 @@
   "description": "Este es el proyecto del curso practico de node donde se realizara una red social",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node api/index_server.js",
+    "api": "pm2 start api/index_server.js",
+    "api-delete": "pm2 delete api/index_server.js",
+    "sql": "pm2 start sql/index_sql.js",
+    "sql-delete": "pm2 delete sql/index_sql.js",
+    "post": "pm2 start post/index_post.js",
+    "post-delete": "pm2 delete post/index_post.js"
   },
   "keywords": [
     "Node",

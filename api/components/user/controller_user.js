@@ -1,5 +1,6 @@
 const { nanoid } = require("nanoid");
 const auth = require("../auth");
+const error = require("../../../utils/error");
 const TABLE = "user";
 
 module.exports = function (injectorStore) {
@@ -13,8 +14,11 @@ module.exports = function (injectorStore) {
     return store.list(TABLE);
   };
 
-  const get = (id) => {
-    return store.get(TABLE, id);
+  const get = async (id) => {
+    if (!id) {
+      throw error("No existe user", 404);
+    }
+    return await store.get(TABLE, id);
   };
 
   const upsert = async (data) => {

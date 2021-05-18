@@ -1,8 +1,8 @@
 // autorizaciones
 const jwt = require("jsonwebtoken");
-const config = require("../config");
 const error = require("../utils/error");
-const secret = config.jwt.secret;
+require("dotenv").config({ path: ".env" });
+const secret = process.env.SECRET;
 
 //genera secreto y token
 const sign = (data) => {

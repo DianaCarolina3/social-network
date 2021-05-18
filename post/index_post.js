@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 
-const config = require("../config");
 const errors = require("../network/errors");
 const bodyParser = require("body-parser");
 
@@ -15,6 +14,7 @@ app.use("/api/post", post);
 
 app.use(errors);
 
-app.listen(config.post.port, () => {
-  console.log(`Server post listen on the port: ${config.post.port}`);
+require("dotenv").config({ path: ".env" });
+app.listen(process.env.POST_PORT, () => {
+  console.log(`Server post listen on the port: ${process.env.POST_PORT}`);
 });

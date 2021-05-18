@@ -21,6 +21,7 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 
 app.use(errors);
 
-app.listen(config.api.port, () => {
-  console.log(`Api listen on the port: ${config.api.port}`);
+require("dotenv").config({ path: ".env" });
+app.listen(process.env.PORT, () => {
+  console.log(`Api listen on the port: ${process.env.PORT}`);
 });

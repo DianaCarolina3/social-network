@@ -5,7 +5,7 @@ const COLLECTION = "post";
 module.exports = function (injectorStore) {
   let store = injectorStore;
   if (!store) {
-    store = require("../../../store/dummy");
+    store = require("../../../store/mysql");
   }
 
   const list = () => {

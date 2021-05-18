@@ -6,7 +6,7 @@ module.exports = {
     port: process.env.POST_PORT || 3002,
   },
   jwt: {
-    secret: process.env.SECRET || "notasecret!!",
+    secret: process.env.SECRET,
   },
   mysgl: {
     host: process.env.MYSQL_HOST,
@@ -19,3 +19,7 @@ module.exports = {
     port: process.env.MYSQL_SERVICE_PORT || 3001,
   },
 };
+
+// jdbc:mysql://myuser:secret_password@localhost:3306/db
+// jdbc:mysql://myhost1:port1,myhost2:port2/db
+// jdbc:mysql://myuser:secret_password@[myhost1:port1,myhost2:port2]/db

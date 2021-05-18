@@ -12,7 +12,7 @@ router.get("/:id", get);
 router.get("/:id/like", postsLiked);
 router.post("/", auth("send"), upsert);
 router.post("/like/:id", auth("like"), like);
-// router.put("/", auth("update"), upsert);
+router.put("/", auth("update"), upsert);
 
 function list(req, res, next) {
   controller

@@ -4,6 +4,7 @@ module.exports = function checkAuth(action) {
   function middleware(req, res, next) {
     switch (action) {
       case "send":
+      case "like":
         Auth.check.token(req);
         next();
         break;

@@ -1,7 +1,6 @@
 const express = require("express");
 
 const bodyParser = require("body-parser");
-const config = require("../config");
 const router = require("./network");
 
 const app = express();
@@ -12,6 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // RUTAS
 app.use("/", router);
 
-app.listen(config.sqlService.port, () => {
-  console.log(`Service SQL listen on port: ${config.sqlService.port}`);
+require("dotenv").config({ path: ".env" });
+app.listen(process.env.MYSQL_SERVICE_PORT, () => {
+  console.log(`Service SQL listen on port: ${process.env.MYSQL_SERVICE_PORT}`);
 });

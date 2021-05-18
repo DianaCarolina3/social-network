@@ -47,15 +47,15 @@ const list = (table) => {
 
 const get = (table, id) => {
   return new Promise((resolve, reject) => {
-    connection.query(`SELECT * FROM ${table} WHERE id = ?`, id, (err, data) => {
+    connection.query(`SELECT * FROM ${table} WHERE id=?`, id, (err, data) => {
       if (err) return reject(err);
       resolve(data);
     });
   });
 };
 
-const upsert = async (table, data) =>
-  new Promise((resolve, reject) => {
+const upsert = async (table, data) => {
+  return new Promise((resolve, reject) => {
     connection.query(
       //si el id esta en la tabla, actualiza los datos, de lo contrario los inserta
       `INSERT INTO ${table} SET ? ON DUPLICATE KEY UPDATE ?`,
@@ -68,6 +68,7 @@ const upsert = async (table, data) =>
       }
     );
   });
+};
 
 //verificacion al inicio de seccion el username
 const query = (table, query, join) => {
