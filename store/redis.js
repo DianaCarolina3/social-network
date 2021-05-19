@@ -19,7 +19,7 @@ const list = (table) => {
       let res = data || null;
       if (data) {
         //de string a object
-        res = JSON.stringify(data);
+        res = JSON.parse(data);
       }
 
       if (data && data.id) {

@@ -3,22 +3,48 @@ const auth = require("../auth");
 const error = require("../../../utils/error");
 const TABLE = "user";
 
-module.exports = function (injectorStore) {
-  //si viene vacio
+module.exports = function (injectorStore, inyectedCache) {
   let store = injectorStore;
+  let cache = inyectedCache;
+
+  //si viene vacio
   if (!store) {
     store = require("../../../store/mysql");
   }
+  if (!cache) {
+    cache = require("../../../store/mysql");
+  }
 
-  const list = () => {
-    return store.list(TABLE);
+  const list = async () => {
+    let users = await cache.list(TABLE);
+
+    if (!users) {
+      console.log("No estaba en caché, bucando en db");
+      users = await store.list(TABLE);
+      cache.upsert(TABLE, users);
+    } else {
+      console.log("Traemos datos de cache");
+    }
+
+    return users;
   };
 
   const get = async (id) => {
     if (!id) {
       throw error("No existe user", 404);
     }
-    return await store.get(TABLE, id);
+
+    let user = await cache.list(TABLE, id);
+
+    if (!user) {
+      user = await store.get(TABLE, id);
+      cache.upsert(TABLE, user);
+      console.log("No estaba en caché, bucando en db");
+    } else {
+      console.log("Traemos datos de cache");
+    }
+
+    return user;
   };
 
   const upsert = async (data) => {
